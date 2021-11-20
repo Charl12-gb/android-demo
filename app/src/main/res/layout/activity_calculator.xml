@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calculator">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:background="@color/black"
+        android:backgroundTint="#3E17668A"
+        android:gravity="center"
+        android:text="@string/calculatrice"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        tools:ignore="MissingConstraints,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/screen"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="36dp"
+        android:background="#C5C2C2"
+        android:fontFamily="monospace"
+        android:gravity="end"
+        android:text="0"
+        android:textAlignment="viewEnd"
+        android:textSize="50sp"
+        app:layout_anchor="@+id/screen"
+        app:layout_anchorGravity="center"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="473dp"
+        android:layout_marginTop="260dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:backgroundTint="#A60D0D"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:text="AC"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnPlusOrMoins"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:text="+/-"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnReste"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="setOperator"
+                android:text="%"
+                android:textSize="25sp" />
+
+
+            <Button
+                android:id="@+id/btnDiv"
+                android:layout_width="133dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="setOperator"
+                android:text="/"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn7"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:text="7"
+                android:onClick="addNumber"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btn8"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="addNumber"
+                android:text="8"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btn9"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="addNumber"
+                android:text="9"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnFois"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="setOperator"
+                android:text="*"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="addNumber"
+                android:text="4"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btn5"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="addNumber"
+                android:text="5"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btn6"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="addNumber"
+                android:text="6"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnMoins"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="setOperator"
+                android:text="-"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:text="1"
+                android:onClick="addNumber"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="addNumber"
+                android:text="2"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:onClick="addNumber"
+                android:layout_margin="4dp"
+                android:text="3"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnPlus"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:onClick="setOperator"
+                android:text="+"
+                android:textSize="25sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn0"
+                android:layout_width="185dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:layout_span="2"
+                android:text="0"
+                android:onClick="addNumber"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnVirgul"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:text="."
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/btnEgal"
+                android:layout_width="129dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:text="="
+                android:textSize="25sp" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
