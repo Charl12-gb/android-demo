@@ -5,112 +5,106 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class calculator extends AppCompatActivity {
 
-    public enum Ops {
-        PLUS("+"),
-        MOINS("-"),
-        FOIS("*"),
-        DIV("/"),
-        RESTE("%");
-
-        private String name = "";
-        Ops(String name){this.name = name;}
-        public String toString(){return name;}
-    }
-
-    private TextView screen;
-    private int op1=0;
-    private int op2=0;
-    private calculator.Ops operator=null;
-    private boolean isOp1=true;
+    private int val1 = 0;
+    private int val2 = 0;
+    private String operation = "";
+    private boolean isOp1 = true;
+    private boolean dec = false;
+    private boolean cal = false;
+    private double resultat;
+    private TextView ecran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
 
-        screen = (TextView) findViewById(R.id.screen);
-        Button btnEgal = (Button)findViewById(R.id.btnEgal);
-        btnEgal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                compute();
-            }
-        });
-
-        Button btnClear = (Button)findViewById(R.id.btnClear);
-        btnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clear();
-            }
-        });
+        ecran = findViewById(R.id.screen);
     }
-
-    private void updateDisplay() {
-        int v=op1;
-        if(!isOp1) {
-            v=op2;
+    private void afficher(){
+        if(!isOp1){ ecran.setText(String.valueOf(val1) +" "+operation+" "+String.valueOf(val2)); }
+        else{
+            if(cal == true){
+                ecran.setText( String.valueOf(resultat) );
+            }else{
+                ecran.setText( String.valueOf(val1) );
+            }
         }
-
-        screen.setText(String.format("%9d",v));
     }
 
-    public void compute() {
+    public void setOperation(View v){
+        switch( v.getId() ){
+            case R.id.btnPlus   :   operation = "+"; break;
+            case R.id.btnMoins  :   operation = "-"; break;
+            case R.id.btnDiv    :   operation = "/"; break;
+            case R.id.btnFois   :   operation = "*"; break;
+            case R.id.btnMod    :   operation = "%"; break;
+            default:
+                return; //Ne retourne rien
+        }
+        isOp1 = false;
+        afficher();
+    }
+
+    public void ajouterChiffre(View v){
+        int val = Integer.parseInt(((Button)v).getText().toString());
         if(!isOp1){
-            switch(operator) {
-                case PLUS : op1 = op1 + op2; break;
-                case MOINS : op1 = op1 - op2; break;
-                case FOIS : op1 = op1 * op2; break;
-                case DIV : op1 = op1 / op2; break;
-                case RESTE : op1 = op1 % op2; break;
-                default : return; // do nothing if no operator
+            val2 = val2 * 10 + val;
+            afficher();
+        }else {
+            val1 = val1 * 10 + val;
+            afficher();
+        }
+    }
+
+    public  void calculer(View view){
+        if(!isOp1){
+            switch (operation){
+                case "+"    :   resultat = (double)val1 + (double)val2; break;
+                case "-"    :   resultat = (double)val1 - (double)val2; break;
+                case "*"    :   resultat = (double)val1 * (double)val2; break;
+                case "/"    :   resultat = (double)val1 / (double)val2; break;
+                case "%"    :   resultat = (double)val1 % (double)val2; break;
+                default:
+                    return;
             }
-            op2 = 0;
+            val2 = 0;
+            cal = true;
             isOp1 = true;
-            updateDisplay();
+            afficher();
         }
     }
-
-    private void clear() {
-        op1 = 0;
-        op2 = 0;
-        operator = null;
+    public  void effacer(View view){
+        val1 = 0;
+        val2 = 0;
+        operation = "";
         isOp1 = true;
-        updateDisplay();
+        afficher();
     }
 
-    public void setOperator(View v) {
-        switch (v.getId()) {
-            case R.id.btnPlus  : operator= calculator.Ops.PLUS;  break;
-            case R.id.btnMoins : operator= calculator.Ops.MOINS; break;
-            case R.id.btnFois  : operator= calculator.Ops.FOIS;  break;
-            case R.id.btnDiv   : operator= calculator.Ops.DIV;   break;
-            case R.id.btnReste   : operator= calculator.Ops.RESTE;   break;
-            default :
-                Toast.makeText(this, "Opérateur non reconnu",Toast.LENGTH_LONG);
-                return; // do nothing if no operator
-        }
-        isOp1=false;
-        updateDisplay();
-    }
-
-    public void addNumber(View v){
-        try {
-            int val = Integer.parseInt(((Button)v).getText().toString());
-            if (isOp1) {
-                op1 = op1 * 10 + val;
-                updateDisplay();
+    public void ValDecimal(View view){
+        double val = Double.parseDouble((((Button)view).getText().toString()));
+        if(dec == false){
+            if(isOp1){
+                //val1 = val1 * 10 + (double)(val/10);
             } else {
-                op2 = op2 * 10 + val;
-                updateDisplay();
+                //val2 = val2 * 10 + (double)(val/10);
             }
-        }catch (NumberFormatException | ClassCastException e) {
-            Toast.makeText(this, "Valeur erronée",Toast.LENGTH_LONG);
         }
+        dec = true;
+        afficher();
+    }
+
+    public void plusMoins(View view){
+        if(isOp1){
+            val1 = val1 * (-1);
+        }else{val2 = val2 * 1;}
+        afficher();
     }
 }
