@@ -17,6 +17,8 @@ public class calculator extends AppCompatActivity {
     private boolean isOp1 = true;
     private boolean dec = false;
     private boolean cal = false;
+    private double dec1 = 0.0;
+    private double dec2 = 0.0;
     private double resultat;
     private TextView ecran;
 
@@ -85,17 +87,18 @@ public class calculator extends AppCompatActivity {
         val2 = 0;
         operation = "";
         isOp1 = true;
+        resultat = 0;
+        cal = false;
         afficher();
     }
 
     public void ValDecimal(View view){
-        double val = Double.parseDouble((((Button)view).getText().toString()));
         if(dec == false){
-            if(isOp1){
-                //val1 = val1 * 10 + (double)(val/10);
-            } else {
-                //val2 = val2 * 10 + (double)(val/10);
-            }
+//            if(isOp1){
+//                dec1 = val1 * 10 + (double)(val1/10);
+//            } else {
+//                dec2 = val2 * 10 + (double)(val2/10);
+//            }
         }
         dec = true;
         afficher();
